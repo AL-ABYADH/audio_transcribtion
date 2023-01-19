@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech-to-Text</title>
+</head>
+<body>
+    <h1>Transcrib your audios now!</h1>
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="audio_file" id="file_input" onclick="onAddFile()" onchange="submitButton()" required>
+        <p id="file_name"></p>
+        <br>
+        <label for="output_dir">Output Directory:</label>
+        <input type="text" id="output_dir" name="output_dir" required>
+        <br>
+        <label for="output_file">Output File:</label>
+        <input type="text" id="output_file" name="output_file">
+        <br><br>
+        <p id="loading" style="display: none;">Transcribing.</p>
+        <input type="submit" id="submit" value="Transcribe" style="display: none;" onclick="onSubmit()">
+    </form>
+    <div id="message" style="display: block;">{{ message }}</div>    
+</body>
+<script>
+    function onSubmit() {
+        document.getElementById("submit").style.display = "none";
+        const element = document.getElementById("loading");
+        element.style.display = "block";
+        setInterval(function() {
+            if (!(element.innerHTML == 'Transcribing....'))
+                element.innerHTML += '.';
+            else
+                element.innerHTML = 'Transcribing.';
+        }, 800);
+    }
+    function submitButton() {
+        document.getElementById("submit").style.display = "block";
+    }
+    function onAddFile() {
+        if (!(document.getElementById("message").innerHTML == '')) {
+            document.getElementById("message").style.display = "none";
+        } else {
+            document.getElementById("message").style.display = "block";
+        }
+    }
+</script>
+</html>
+
+
