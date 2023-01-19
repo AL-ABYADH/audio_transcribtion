@@ -18,7 +18,7 @@ def upload():
         output_file = 'Transcription.txt'
     audio_file.save(audio_file.filename)
     transcribe_audio(audio_file.filename, output_dir, output_file)
-    return render_template('index.html', message='Successfully transcribed')
+    return render_template('index.html', message='Successfully Transcribed')
 
 if __name__ == '__main__':
     app.run(debug=True)
