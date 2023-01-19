@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from transcribe_audio import transcribe_audio
 
 app = Flask(__name__)
-app.template_folder = ''  # set template folder to the root directory
+app.template_folder = './docs'  # set template folder to the root directory
 
 @app.route('/')
 def index():
