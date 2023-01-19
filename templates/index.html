@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech-to-Text</title>
+</head>
+<body>
+    <h1>Transcrib your audios now!</h1>
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="audio_file" id="file_input" onclick="onAddFile()" onchange="submitButton()" required>
+        <p id="file_name"></p>
+        <br>
+        <label for="output_dir">Output Directory:</label>
+        <input type="text" id="output_dir" name="output_dir" required>
+        <br>
+        <label for="output_file">Output File:</label>
+        <input type="text" id="output_file" name="output_file">
+        <br><br>
+        <p id="loading" style="display: none;">Transcribing.</p>
+        <input type="submit" id="submit" value="Transcribe" style="display: none;" onclick="onSubmit()">
+    </form>
+    <div id="message" style="display: block;">Successfully Transcribed</div>    
+</body>
+<script>
+    function onSubmit() {
+        document.getElementById("submit").style.display = "none";
+        const element = document.getElementById("loading");
+        element.style.display = "block";
+        setInterval(function() {
+            if (!(element.innerHTML == 'Transcribing....'))
+                element.innerHTML += '.';
+            else
+                element.innerHTML = 'Transcribing.';
+        }, 800);
+    }
+    function submitButton() {
+        document.getElementById("submit").style.display = "block";
+    }
+    function onAddFile() {
+        if (!(document.getElementById("message").innerHTML == '')) {
+            document.getElementById("message").style.display = "none";
+        } else {
+            document.getElementById("message").style.display = "block";
+        }
+    }
+</script>
+<style>
+    body {
+    background-color: #f2f2f2;
+}
+
+/* Center the content on the page */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Add some padding and margin to the form */
+form {
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* Style the input fields */
+input[type="text"],
+input[type="file"] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style the message */
+.message {
+    padding: 20px;
+    margin: 20px;
+    background-color: #d9edf7;
+    border-radius: 10px;
+}
+</style>
+</html>
+
+
