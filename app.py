@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from transcribe_audio import transcribe_audio
 
 app = Flask(__name__)
+app.template_folder = ''  # set template folder to the root directory
 
 @app.route('/')
 def index():
@@ -14,7 +15,7 @@ def upload():
     if request.form['output_file']:
         output_file = request.form['output_file']
     else:
-        output_file = 'Transcribtion.txt'
+        output_file = 'Transcription.txt'
     audio_file.save(audio_file.filename)
     transcribe_audio(audio_file.filename, output_dir, output_file)
     return render_template('index.html', message='Successfully transcribed')
